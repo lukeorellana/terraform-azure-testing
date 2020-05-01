@@ -21,7 +21,7 @@ pip install pre-commit
 # Install Terraform
 wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip
 unzip terraform_0.12.23_linux_amd64.zip
-mv terraform /usr/local/bin/
+sudo mv terraform /usr/local/bin/
 rm terraform_0.12.23_linux_amd64.zip
 
 #Install go fmt
@@ -29,7 +29,7 @@ rm terraform_0.12.23_linux_amd64.zip
 
 #Install tflint
 curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
-mv tflint /usr/local/bin/
+sudo mv tflint /usr/local/bin/
 
 #Install Terraform Documents
 GO111MODULE="on" go get github.com/segmentio/terraform-docs@v0.9.1
