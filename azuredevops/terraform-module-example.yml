@@ -1,0 +1,80 @@
+trigger:
+  branches:
+    include:
+    - features/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: AzSubscription
+- name: GOBIN
+  value: '$(GOPATH)/bin'
+- name: GOROOT
+  value: '/usr/local/go1.13' 
+- name: GOPATH
+  value: '$(system.defaultWorkingDirectory)/gopath'
+- name: modulePath
+  value: '$(GOPATH)/src/dev.azure.com/LukeLabDemo/_git/$(build.repository.name)'
+- name: GOBIN
+  value: '$(GOPATH)/bin'  
+
+steps:
+- script: |
+    mkdir -p '$(GOBIN)'
+    mkdir -p '$(GOPATH)/pkg'
+    mkdir -p '$(modulePath)'
+    shopt -s extglob
+    shopt -s dotglob
+    mv !(gopath) '$(modulePath)'
+    echo '##vso[task.prependpath]$(GOBIN)'
+    echo '##vso[task.prependpath]$(GOROOT)/bin'
+  displayName: 'Set up the Go workspace'
+
+- script: |
+    go get -v -t -d ./...
+  workingDirectory: '$(modulePath)/test'
+  displayName: 'go get dependencies'
+
+    
+- task: Bash@3
+  displayName: Install Log Parser
+  inputs:
+    targetType: 'inline'
+    script: |
+      # This example assumes a linux 64bit machine
+      # Use curl to download the binary
+      curl --location --silent --fail --show-error -o terratest_log_parser https://github.com/gruntwork-io/terratest/releases/download/v0.13.13/terratest_log_parser_linux_amd64
+      # Make the downloaded binary executable
+      chmod +x terratest_log_parser
+      # Finally, we place the downloaded binary to a place in the PATH
+      sudo mv terratest_log_parser /usr/local/bin
+
+
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: '0.12.19'
+
+- task: AzureCLI@2
+  displayName: Run Terratest
+  inputs:
+    azureSubscription: 'AzureSubScription-Connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      go test -v -count=1 -timeout 30m ./... | tee test_output.log
+      terratest_log_parser -testlog test_output.log -outputdir test_output
+    workingDirectory: '$(modulePath)/test'
+  env:
+    ARM_SUBSCRIPTION_ID: '$(AzureSubscription)'
+    ARM_CLIENT_ID: '$(AzureSP-id)'
+    ARM_CLIENT_SECRET: '$(Azure-SP-secret)'
+    ARM_TENANT_ID: '$(AzureTenant)'
+
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'report.xml'
+    searchFolder: '$(modulePath)/test/test_output'
+    failTaskOnFailedTests: true
