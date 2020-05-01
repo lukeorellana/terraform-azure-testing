@@ -16,7 +16,7 @@ source ~/.profile
 
 #Install Pre-Commit
 
-pip install pre-commit
+sudo pip install pre-commit
 
 # Install Terraform
 wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip
@@ -33,3 +33,6 @@ sudo mv tflint /usr/local/bin/
 
 #Install Terraform Documents
 GO111MODULE="on" go get github.com/segmentio/terraform-docs@v0.9.1
+
+#Install GO Dependancies
+go get -v -t -d ./...
