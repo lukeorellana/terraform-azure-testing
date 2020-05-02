@@ -63,10 +63,10 @@ func TestTerraformAzureNetworkingExample(t *testing.T) {
 	vnetName := terraform.Output(t, terraformOptions, "vnet_name")
 
 	// Look up all subnet IDs from the Virtual Network Name
-	subnets := azure.GetSubnetsforVnet(t, vnetName, vnetRG, "")
+	subnets := azure.GetSubnetsforVnet(t, vnetRG, vnetName,  "")
 
 	// Look up Subnet and NIC ID associations of NSG
-	nsgAssociations := azure.GetAssociationsforNSG(t, nsgName, vnetRG, "")
+	nsgAssociations := azure.GetAssociationsforNSG(t, vnetRG, nsgName, "")
 
 	//Check if the subnet exists in the Virtual Network
 	assert.Contains(t, subnets, subnetID)
