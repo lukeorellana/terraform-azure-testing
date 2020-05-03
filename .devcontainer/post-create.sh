@@ -1,21 +1,17 @@
 #Install GO
 
 wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
-
 tar -xvf go1.13.4.linux-amd64.tar.gz
-
 sudo mv go /usr/local
-
 rm go1.13.4.linux-amd64.tar.gz
 
+#Set up Go variables
 echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
 echo 'export GOPATH=$HOME/workspace' >> ~/.bashrc
 echo 'export PATH=$GOROOT/bin:$GOPATH/bin:$PATH' >> ~/.bashrc
-
 source ~/.profile
 
 #Install Pre-Commit
-
 sudo pip install pre-commit
 
 # Install Terraform
@@ -30,7 +26,3 @@ sudo mv tflint /usr/local/bin/
 
 #Install Go Lint
 go get -u golang.org/x/lint/golint
-
-#Install GO Dependancies
-go get -v -t -d ./...
-
