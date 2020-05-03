@@ -24,9 +24,6 @@ unzip terraform_0.12.23_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 rm terraform_0.12.23_linux_amd64.zip
 
-#Install go fmt
-
-
 #Install tflint
 curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
 sudo mv tflint /usr/local/bin/
