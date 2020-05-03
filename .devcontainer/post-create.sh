@@ -31,8 +31,9 @@ rm terraform_0.12.23_linux_amd64.zip
 curl -L "$(curl -Ls https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" -o tflint.zip && unzip tflint.zip && rm tflint.zip
 sudo mv tflint /usr/local/bin/
 
-#Install Terraform Documents
-GO111MODULE="on" go get github.com/segmentio/terraform-docs@v0.9.1
+#Install Go Lint
+go get -u golang.org/x/lint/golint
 
 #Install GO Dependancies
 go get -v -t -d ./...
+

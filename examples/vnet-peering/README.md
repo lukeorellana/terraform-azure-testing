@@ -1,0 +1,1 @@
+This is an example of peering two virtual networks togther. Each virtual network configuration is in each folder while the 2nd Virtual Network performs the peering. 

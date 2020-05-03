@@ -1,9 +1,9 @@
-output "first_peer_id" {
+output "vnet_rg" {
   description = "ID of the first Virtual Network peer"
-  value       = module.vnet_peer.first_peer_id
+  value       = module.vnet.vnet_rg
 }
 
-output "second_peer_id" {
+output "vnet_name" {
   description = "ID of the second Virtual Network peer"
-  value       = module.vnet_peer.second_peer_id
+  value       = module.vnet.vnet_name
 }

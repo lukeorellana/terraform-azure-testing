@@ -5,7 +5,5 @@ repos:
       - id: terraform-fmt
       - id: terraform-validate
       - id: tflint
-  - repo: git://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.27.0
-    hooks: 
-      - id: terraform_docs
+      - id: gofmt
+      - id: golint

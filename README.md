@@ -1,8 +1,8 @@
-# Introduction
-This is a networking terraform configuration
+This is an example of a typical Terraform module repository structure with tests. This module will deploy an Azure Virtual Network as well as configure a Network Security Group. There is also a helper module for peering vnets together.
+
+The tests consist of a unit test, testing the abilty to create a 
 
 
-# Input and Output Variables
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

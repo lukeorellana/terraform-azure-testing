@@ -80,8 +80,14 @@ func TestTerraformAzureNetworkingPeeringExample(t *testing.T) {
 	terraform.InitAndApply(t, vnet2Opts)
 
 	// Validate VNet peering
-	peer1ID := terraform.Output(t, vnet2Opts, "first_peer_id")
-	peer2ID := terraform.Output(t, vnet2Opts, "second_peer_id")
-	assert.NotNil(t, peer1ID)
-	assert.NotNil(t, peer2ID)
+	vnet2RG := terraform.Output(t, vnet2Opts, "vnet_rg")
+	vnet2Name := terraform.Output(t, vnet2Opts, "vnet_name")
+
+	// Look up Virtual Network by Name
+	vnet2Properties := azure.GetVnetbyName(t, vnet2RG, vnet2Name, "")
+
+	//Check if each VNet Peering Provisioned Successfully
+	for _, vnet := range *vnet2Properties.VirtualNetworkPeerings {
+		assert.Equal(t, "Succeeded", string(vnet.VirtualNetworkPeeringPropertiesFormat.ProvisioningState), "Check if Peerings provisioned successfully")
+	}
 }
