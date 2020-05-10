@@ -1,6 +1,5 @@
 variable "system" {
   type        = string
-  description = "Name of the system or environment"
   default     = "terratest"
 }
 
