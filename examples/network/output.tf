@@ -3,11 +3,6 @@ output "vnet_rg" {
   value       = module.vnet.vnet_rg
 }
 
-output "vnet_name" {
-  description = "Location of vnet"
-  value       = module.vnet.vnet_name
-}
-
 output "subnet_id" {
   description = "Subnet ID"
   value       = module.vnet.subnet_id

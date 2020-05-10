@@ -26,3 +26,6 @@ sudo mv tflint /usr/local/bin/
 
 #Install Go Lint
 go get -u golang.org/x/lint/golint
+
+#Install JQ
+sudo apt-get -y install jq
