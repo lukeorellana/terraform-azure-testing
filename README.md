@@ -1,3 +1,1 @@
-This repository is an example of a typical Terraform module repository structure with tests. This module deploys an Azure Virtual Network as well as configure a Network Security Group. There is also a helper module for peering Virtual Networks together.
-
-The tests consist of a unit test, testing the ability to create a Virtual Network with a Network Security Group, and an integration test, testing the ability to peer to Virtual Networks together. 
+This repository is an example of a typical Terraform module repository structure with tests. However, the tests are not written yet, follow along with this [step-by-step tutorial](https://cloudskills.io/blog/terraform-azure-08) on CloudSkills to complete writing tests for this module.  This module deploys an Azure Virtual Network as well as configure a Network Security Group. There is also a helper module for peering Virtual Networks together.
